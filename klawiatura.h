@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+//dupa
 
 namespace Ui {
 class klawiatura;
