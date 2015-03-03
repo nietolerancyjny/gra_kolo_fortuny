@@ -2,12 +2,13 @@
 #define OKNOGRY_H
 
 #include "mainwindow.h"
+#include "windows.h"
+#include <ctime>
 #include <QDialog>
+#include <QObject>
 #include <QStringList>
 #include <QToolButton>
-#include <QTimer>
-#include <ctime>
-
+#include <QInputDialog>
 
 namespace Ui {
 class oknoGry;
@@ -23,14 +24,17 @@ public:
      void nowaGra();
 
 private slots:
+     void obroc();
 
-     void Obroc_o_kat();
-
+     //przyciski
      void on_pbUkryj_clicked();
      void on_pbWyswietl_clicked();
      void on_pbLitera_clicked();
      void on_pbKlawiatura_clicked();
+     void on_pbZakrecKolem_clicked();
+     void on_pbNowe_clicked();
 
+     //klawiatura
      void on_klaw_y_clicked();
      void on_klaw_u_clicked();
      void on_klaw_oPL_clicked();
@@ -66,37 +70,39 @@ private slots:
      void on_klaw_cPL_clicked();
      void on_klaw_c_clicked();
      void on_klaw_b_clicked();
-     void on_pbNowe_clicked();
 
-     void on_pbZakrecKolem_clicked();
+
+     void on_pbOdgadnijHaslo_clicked();
 
 private:
     Ui::oknoGry *ui;
 
-    void wczytajKolo();
-    void wylosujHaslo();
+    //wyswietlacz oraz okno
     void stylPrzyciskow();
     void wyczyscEkran();
     void kolorujPusteZnaki();
+    void pokazSamogloski(bool decyzja);
+    void pokazSpolgloski(bool decyzja);
+    void pokazPrzyciski(bool decyzja);
+    QToolButton * tablica[60];
+
+    //haslo
+    void wylosujHaslo();
     void wstawHaslo();
     void ukryjHaslo();
     void wyswietlHaslo();
-    void pokazSamogloski(bool decyzja);
-    void pokazSpolgloski(bool decyzja);
     int odgadujeLitere(QString znak);
-
     QString wylosowaneHaslo;
-    QToolButton* tablica[59];
 
 
-    unsigned obrot;
-    unsigned kat_kola;
-    unsigned stan_kola;
+    //kolo
+    void wczytajKolo();
+    int obrot;
+    int katKola;
+    int stanKola;
     QStringList wartosciNaKole;
-    unsigned spowolnienie1;
     QTimer * timer;
 
 };
-
 
 #endif // OKNOGRY_H

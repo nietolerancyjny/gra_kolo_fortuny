@@ -9,74 +9,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>657</width>
-    <height>715</height>
+    <width>1064</width>
+    <height>484</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Kolo Fortuny - Grzegorz Pyka</string>
   </property>
-  <widget class="QGraphicsView" name="graphicsView">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>170</y>
-     <width>341</width>
-     <height>321</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="font">
-    <font>
-     <stylestrategy>PreferDefault</stylestrategy>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::WheelFocus</enum>
-   </property>
-   <property name="contextMenuPolicy">
-    <enum>Qt::NoContextMenu</enum>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="horizontalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="interactive">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="TextEditHaslo">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>180</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>410</x>
      <y>10</y>
-     <width>602</width>
+     <width>631</width>
      <height>151</height>
     </rect>
    </property>
@@ -2561,8 +2506,8 @@
   <widget class="QPushButton" name="pbWyswietl">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>500</y>
+     <x>790</x>
+     <y>200</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -2574,8 +2519,8 @@
   <widget class="QPushButton" name="pbUkryj">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>500</y>
+     <x>870</x>
+     <y>200</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -2587,8 +2532,8 @@
   <widget class="QPushButton" name="pbLitera">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>500</y>
+     <x>870</x>
+     <y>170</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -2600,8 +2545,8 @@
   <widget class="QPushButton" name="pbKlawiatura">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>500</y>
+     <x>790</x>
+     <y>170</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -2613,9 +2558,9 @@
   <widget class="QPushButton" name="pbNowe">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>500</y>
-     <width>75</width>
+     <x>950</x>
+     <y>200</y>
+     <width>91</width>
      <height>23</height>
     </rect>
    </property>
@@ -2623,13 +2568,13 @@
     <string>Nowe</string>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="layoutWidget1">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>530</y>
-     <width>815</width>
-     <height>161</height>
+     <x>410</x>
+     <y>260</y>
+     <width>631</width>
+     <height>171</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridKlawiatura">
@@ -3517,28 +3462,238 @@
     </item>
    </layout>
   </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>230</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbOdgadnijHaslo">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>170</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Odgadnij Hasło</string>
+   </property>
+  </widget>
   <widget class="QPushButton" name="pbZakrecKolem">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>430</y>
-     <width>75</width>
-     <height>23</height>
+     <x>0</x>
+     <y>400</y>
+     <width>401</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>30</width>
+     <height>31</height>
+    </size>
    </property>
    <property name="text">
     <string>Zakręć kołem</string>
    </property>
   </widget>
+  <widget class="QGraphicsView" name="graphicsView">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>381</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>300</width>
+     <height>300</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <stylestrategy>PreferDefault</stylestrategy>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="interactive">
+    <bool>false</bool>
+   </property>
+   <property name="renderHints">
+    <set>QPainter::Antialiasing|QPainter::TextAntialiasing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelWylosowanaKwota">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>110</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>101</width>
+     <height>16</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>111</width>
+     <height>16</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Wylosowana kwota:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="TextEditKwota">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>81</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>81</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelZnacznikKola">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>-10</y>
+     <width>81</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1600</width>
+     <height>1600</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>23</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>|</string>
+   </property>
+  </widget>
   <zorder>layoutWidget</zorder>
-  <zorder>graphicsView</zorder>
-  <zorder>TextEditHaslo</zorder>
-  <zorder>layoutWidget</zorder>
+  <zorder>layoutWidget1</zorder>
   <zorder>pbWyswietl</zorder>
   <zorder>pbUkryj</zorder>
   <zorder>pbLitera</zorder>
   <zorder>pbKlawiatura</zorder>
   <zorder>pbNowe</zorder>
+  <zorder>lineEdit</zorder>
+  <zorder>pbOdgadnijHaslo</zorder>
+  <zorder>pbZakrecKolem</zorder>
+  <zorder>graphicsView</zorder>
+  <zorder>labelWylosowanaKwota</zorder>
+  <zorder>TextEditKwota</zorder>
+  <zorder>labelZnacznikKola</zorder>
+  <zorder>TextEditKwota</zorder>
+  <zorder>labelWylosowanaKwota</zorder>
   <zorder>pbZakrecKolem</zorder>
  </widget>
  <resources/>
