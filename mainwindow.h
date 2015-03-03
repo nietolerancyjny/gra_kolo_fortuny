@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <hasla.h>
-#include <oknogry.h>
+#include "hasla.h"
+#include "oknogry.h"
 #include <QMainWindow>
 #include <QString>
 #include <QMessageBox>

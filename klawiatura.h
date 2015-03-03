@@ -3,7 +3,6 @@
 
 #include <QDialog>
 
-//dupa
 
 namespace Ui {
 class klawiatura;
@@ -14,7 +13,7 @@ class klawiatura : public QDialog
 Q_OBJECT
 
 public:
-     explicit klawiatura(QWidget *parent);
+     explicit klawiatura(QWidget *parent = 0);
      ~klawiatura();
 
 private:
