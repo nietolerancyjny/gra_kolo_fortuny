@@ -15,15 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     hasla.cpp \
-    oknogry.cpp \
-    klawiatura.cpp
+    oknogry.cpp
 
 HEADERS  += mainwindow.h \
     hasla.h \
-    oknogry.h \
-    klawiatura.h
+    oknogry.h
 
 FORMS    += mainwindow.ui \
     hasla.ui \
-    oknogry.ui \
-    klawiatura.ui
+    oknogry.ui

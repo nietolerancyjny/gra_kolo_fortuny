@@ -12,7 +12,11 @@ oknoGry::oknoGry(QWidget *parent) :
        tablica[16]=ui->litera_17; tablica[17]=ui->litera_18; tablica[18]=ui->litera_19; tablica[19]=ui->litera_20; tablica[20]=ui->litera_21; tablica[21]=ui->litera_22; tablica[22]=ui->litera_23; tablica[23]=ui->litera_24; tablica[24]=ui->litera_25; tablica[25]=ui->litera_26; tablica[26]=ui->litera_27; tablica[27]=ui->litera_28; tablica[28]=ui->litera_29; tablica[29]=ui->litera_30; tablica[30]=ui->litera_31; tablica[31]=ui->litera_32;
        tablica[32]=ui->litera_33; tablica[33]=ui->litera_34; tablica[34]=ui->litera_35; tablica[35]=ui->litera_36; tablica[36]=ui->litera_37; tablica[37]=ui->litera_38; tablica[38]=ui->litera_39; tablica[39]=ui->litera_40; tablica[40]=ui->litera_41; tablica[41]=ui->litera_42; tablica[42]=ui->litera_43; tablica[43]=ui->litera_44; tablica[44]=ui->litera_45; tablica[45]=ui->litera_46; tablica[46]=ui->litera_47; tablica[47]=ui->litera_48; tablica[48]=ui->litera_49;
        tablica[49]=ui->litera_50; tablica[50]=ui->litera_51; tablica[51]=ui->litera_52; tablica[52]=ui->litera_53; tablica[53]=ui->litera_54; tablica[54]=ui->litera_55; tablica[55]=ui->litera_56; tablica[56]=ui->litera_57; tablica[57]=ui->litera_58; tablica[58]=ui->litera_59; tablica[59]=ui->litera_60;
-    }
+       katKola=0;
+       stanKola=0;
+       wartosciNaKole<<"425"<<"225"<<"375"<<"STOP"<<"25"<<"275"<<"400"<<"325"<<"100"<<"Bankrut"<<"200"<<"50"<<"350"<<"Nagroda"<<"175"<<"475"<<"300"<<"125"<<"75"<<"1400";
+       stylPrzyciskow();
+   }
 
 //destruktor
 oknoGry::~oknoGry()
@@ -25,13 +29,12 @@ oknoGry::~oknoGry()
 void oknoGry::nowaGra()
 {
     wczytajKolo();
-
-
-    stylPrzyciskow();
     wylosujHaslo();
     wyczyscEkran();
     wstawHaslo();
     ukryjHaslo();
+
+
 }
 
 //************************************************
@@ -40,53 +43,55 @@ void oknoGry::nowaGra()
 void oknoGry::wczytajKolo()
 {
     QGraphicsScene *scena = new QGraphicsScene(this);
-    QPixmap obrazek("kolo.jpg");
-    obrazek=obrazek.scaled(300,300, Qt::KeepAspectRatio);
-    scena->addPixmap(obrazek);
+    QPixmap *obrazek = new QPixmap("kolo.jpg");
+    //*obrazek=obrazek->scaled(380,380, Qt::KeepAspectRatio); //obrazek=obrazek.scaled(300,300, Qt::KeepAspectRatio);
+    scena->addPixmap(*obrazek);
     ui->graphicsView->setScene(scena);
     ui->graphicsView->setAlignment(Qt::AlignHCenter);
     ui->graphicsView->setAlignment(Qt::AlignVCenter);
-
-    wartosciNaKole<<"425"<<"225"<<"375"<<"STOP"<<"25"<<"275"<<"400"<<"325"<<"100"<<"Bankrut"<<"200"<<"50"<<"350"<<"Nagroda"<<"175"<<"475"<<"300"<<"125"<<"75"<<"1400";
-    ui->TextEditHaslo->setText(wartosciNaKole[0]);
-    kat_kola=0;
-    stan_kola=0;
+    ui->TextEditKwota->setText(wartosciNaKole[0]);
+    delete obrazek;
 }
 
+//************************************************
+//Zakrecenie kołem przycisk
+//************************************************
 void oknoGry::on_pbZakrecKolem_clicked()
 {
+    pokazPrzyciski(false);
     srand(time(0));
     obrot = rand()%360;
-    spowolnienie1=(rand()%30)+30;
-
+    spowolnienie = ( rand()%30 ) + 30;
     timer = new QTimer(this);
-    timer->connect(timer,SIGNAL(timeout()),this,SLOT(Obroc_o_kat()));
+    timer->connect(timer,SIGNAL(timeout()),this,SLOT(obroc()));
     timer->start(5);
-
 }
 
-void oknoGry::Obroc_o_kat()
+//************************************************
+//obrot kołem
+//************************************************
+void oknoGry::obroc()
 {
-    static unsigned j = 0 ;
+    int static j = 0 ;
 
-    if(j==obrot+360){
+    if(j==obrot+360)
+    {
         timer->stop();
         j=0;
 
-        if(wartosciNaKole[stan_kola]=="Bankrut")
+        if(wartosciNaKole[stanKola]=="Bankrut")
         {
 
             //suma_gracze[stan_gry]=0;
             //Plansza::Kolejny_stan_gry();
             //Plansza::Wyswietl_komunikat(bankrut);
 
-
-        }else if(wartosciNaKole[stan_kola]=="Nagroda")
+        }else if(wartosciNaKole[stanKola]=="Nagroda")
         {
             //Plansza::Wyswietl_komunikat(nagroda);
 
 
-        }else if(wartosciNaKole[stan_kola]=="STOP")
+        }else if(wartosciNaKole[stanKola]=="STOP")
         {
             //Plansza::Kolejny_stan_gry();
             //Plansza::Wyswietl_komunikat(stop);
@@ -95,18 +100,21 @@ void oknoGry::Obroc_o_kat()
         {
             //Plansza::Wyswietl_klawiature();
         }
+        pokazPrzyciski(true);
         //Plansza::Zablokuj_Odblokuj_przyciski(false);
-    }
-    kat_kola = ((++kat_kola)%360);
-    stan_kola = (kat_kola/18);
-    stan_kola %= 20;
+        //ui->pbZakrecKolem->blockSignals(true);
 
-    ui->TextEditHaslo->setText(wartosciNaKole[stan_kola]);
+    }
+    ++katKola;
+    katKola = katKola%360;
+    stanKola = (katKola/18);
+    stanKola %= 20;
+    ui->TextEditKwota->setText(wartosciNaKole[stanKola]);
 
     if(j<obrot+300)
     {
         ui->graphicsView->rotate(1);
-    }else if(j<spowolnienie1+300+obrot){
+    }else if(j<spowolnienie+300+obrot){
         for(int i=0;i<1000;i++){
             ui->graphicsView->rotate(0.001);
         }
@@ -115,31 +123,8 @@ void oknoGry::Obroc_o_kat()
             ui->graphicsView->rotate(0.0002);
         }
     }
-
     j++;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //************************************************
@@ -158,6 +143,7 @@ void oknoGry::wylosujHaslo()
 void oknoGry::stylPrzyciskow()
 {
    qApp->setStyleSheet("QToolButton {  border: 1px solid #000000; border-radius: 0px; background-color: #ece9d8; color: black; }");
+   ui->TextEditKwota->setStyleSheet("background-color: #ece9d8; color: black;");
 }
 //************************************************
 //czyszczenie ekranu z liter
@@ -223,7 +209,6 @@ void oknoGry::wyswietlHaslo()
             if( tablica[i]->text() == "," or tablica[i]->text() == "." or tablica[i]->text() == "-")
                 tablica[i]->setStyleSheet("background-color: gray;");
        }
-
     }
 }
 //************************************************
@@ -297,7 +282,23 @@ void oknoGry::pokazSpolgloski(bool decyzja)
 }
 
 //************************************************
+//blokowanie / odblokowywanie przycisków
+//************************************************
+void oknoGry::pokazPrzyciski(bool decyzja)
+{
+   pokazSamogloski(decyzja);
+   pokazSpolgloski(decyzja);
+   ui->pbZakrecKolem->setEnabled(decyzja);
+   ui->pbWyswietl->setEnabled(decyzja);
+   ui->pbKlawiatura->setEnabled(decyzja);
+   ui->pbLitera->setEnabled(decyzja);
+   ui->pbNowe->setEnabled(decyzja);
+   ui->pbOdgadnijHaslo->setEnabled(decyzja);
+   ui->pbUkryj->setEnabled(decyzja);
+}
 
+//************************************************
+// PushButtony
 //************************************************
 void oknoGry::on_pbUkryj_clicked()
 {
@@ -321,12 +322,27 @@ void oknoGry::on_pbKlawiatura_clicked()
     pokazSpolgloski(false);
 }
 
+//button nowaGra
 void oknoGry::on_pbNowe_clicked()
 {
     nowaGra();
 }
 
+//przycisk odgaduje haslo
+void oknoGry::on_pbOdgadnijHaslo_clicked()
+{
 
+    bool czyOk;
+
+    QString hasloGracza = QInputDialog::getText(this,"Zgaduj","Podaj hasło",QLineEdit::Normal,"",&czyOk);
+    if(czyOk == true and QString::compare(hasloGracza, wylosowaneHaslo, Qt::CaseInsensitive) == 0)
+    {
+        ui->lineEdit->setText("Wygrałeś!!!");
+        wyswietlHaslo();
+    }
+
+
+}
 
 //************************************************
 //Klawiatura
@@ -373,8 +389,8 @@ void oknoGry::on_klaw_aPL_clicked()
 
 void oknoGry::on_klaw_a_clicked()
 {
-   ui->TextEditHaslo->setText(QString::number(odgadujeLitere("a")));
-   // odgadujeLitere("a");
+   //ui->TextEditHaslo->setText(QString::number(odgadujeLitere("a")));
+    odgadujeLitere("a");
 }
 
 void oknoGry::on_klaw_zPL_clicked()
@@ -506,4 +522,6 @@ void oknoGry::on_klaw_b_clicked()
 {
     odgadujeLitere("b");
 }
+
+
 
