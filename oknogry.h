@@ -97,9 +97,9 @@ private:
 
     //kolo
     void wczytajKolo();
-    int obrot;
-    int katKola;
-    int stanKola;
+    unsigned obrot;
+    unsigned katKola;
+    unsigned stanKola;
     QStringList wartosciNaKole;
     QTimer * timer;
 

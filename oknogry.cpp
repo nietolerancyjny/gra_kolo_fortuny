@@ -69,7 +69,7 @@ void oknoGry::obroc()
     srand(time(0));
     obrot = rand()%360;
 
-    for(int i=0; i <= obrot+300;i++)
+    for(unsigned i=0; i <= obrot+300;i++)
     {
         ui->graphicsView->rotate(1);
         ui->graphicsView->repaint();
@@ -77,9 +77,18 @@ void oknoGry::obroc()
         stanKola = (katKola%360)/18;
         stanKola %= 20;
         ui->TextEditKwota->setText(wartosciNaKole[stanKola]);
+        //zabezpieczenie przed zapelnieniem zmiennnej
+        if (katKola==360)
+            katKola=0;
         //tu będą ify dla bankurta, nagrody, stop i wartosci wylosowanych
         Sleep(2 + (i * i/10000) );
     }
+    QMessageBox brakHasel ("ERROR", QString::number(katKola),
+                           QMessageBox::Warning,
+                           QMessageBox::Ok, 0, 0 );
+    brakHasel.exec();
+
+    //katKola=0;
 }
 
 
