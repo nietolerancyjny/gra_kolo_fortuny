@@ -10,6 +10,29 @@
 #include <QToolButton>
 #include <QInputDialog>
 
+enum komunikaty
+{
+    CZYJA_KOLEJKA,
+    ZAKREC_KOLEM,
+    ZAKREC_KOLEM_LUB_KUP_SAMOGLOSKE,
+    ODGADNIJ_SAMOGLOSKE,
+    WYSWIETL_WYNIK,
+    KUPIL_SAMOGLOSKE,
+};
+
+enum stanyGry
+{
+    KRECENIE_KOLEM,
+    ODGADUJE_LITERE,
+    ODGADL_LITERE,
+    NIE_ODGADL_LITERY,
+    KUPUJE_SAMOGLOSKE,
+    BANKRUT,
+    NAGRODA,
+    STOP,
+    KONIEC_GRY,
+};
+
 namespace Ui {
 class oknoGry;
 }
@@ -21,18 +44,17 @@ Q_OBJECT
 public:
      explicit oknoGry(QWidget *parent = 0);
      ~oknoGry();
-     void nowaGra();
 
 private slots:
-     void obroc();
 
      //przyciski
      void on_pbUkryj_clicked();
      void on_pbWyswietl_clicked();
      void on_pbLitera_clicked();
-     void on_pbKlawiatura_clicked();
+     void on_pbKupSamogloske_clicked();
      void on_pbZakrecKolem_clicked();
      void on_pbNowe_clicked();
+     void on_pbOdgadnijHaslo_clicked();
 
      //klawiatura
      void on_klaw_y_clicked();
@@ -71,37 +93,56 @@ private slots:
      void on_klaw_c_clicked();
      void on_klaw_b_clicked();
 
-
-     void on_pbOdgadnijHaslo_clicked();
-
 private:
     Ui::oknoGry *ui;
 
-    //wyswietlacz oraz okno
+    //wyswietlacz / okno / gra
+    void nowaGra();
+    void rozgrywka();
     void stylPrzyciskow();
     void wyczyscEkran();
     void kolorujPusteZnaki();
     void pokazSamogloski(bool decyzja);
     void pokazSpolgloski(bool decyzja);
     void pokazPrzyciski(bool decyzja);
+    void pokazKlawiature(bool decyzja);
+    void pokazZakrecKolem(bool decyzja);
+    void pokazKupSamogloski(bool decyzja);
+    void pokazOdgadujeHaslo(bool decyzja);
+    void wyswietlKomunikat(int komunikat);
+    void wyswietlKomunikatMsgBox(QString komunikat);
+    void koniecGry();
+    void nastepnyStanGry();
     QToolButton * tablica[60];
+    komunikaty komunikat;
+    stanyGry stanGry;
 
     //haslo
     void wylosujHaslo();
     void wstawHaslo();
     void ukryjHaslo();
     void wyswietlHaslo();
-    int odgadujeLitere(QString znak);
+    void sprawdzIloscLiterHasla();
+    void odgadujeHaslo();
+    void odgadujeLitere(QString znak, bool spolgloska);
     QString wylosowaneHaslo;
-
+    QStringList odgadywaneLitery;
+    int pozostaloLiterDoOdgadniecia;
 
     //kolo
     void wczytajKolo();
+    void obroc();
     unsigned obrot;
     unsigned katKola;
     unsigned stanKola;
     QStringList wartosciNaKole;
-    QTimer * timer;
+    //QTimer * timer;
+
+    //gracze
+    void wylosujGracza();
+    void nastepnyGracz();
+    int kolejkaGracza;
+    int wynikGracza[4];
 
 };
 

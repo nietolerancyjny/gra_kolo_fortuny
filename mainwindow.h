@@ -5,6 +5,7 @@
 #include "oknogry.h"
 #include <QMainWindow>
 #include <QString>
+#include <QStringList>
 #include <QMessageBox>
 
 namespace Ui {
@@ -20,11 +21,8 @@ public:
     ~MainWindow();
 
     static QString sciezkaPliku;
+    static QStringList imionaGraczy;
     static QString haslaPliku;
-    static QString imieGracza1;
-    static QString imieGracza2;
-    static QString imieGracza3;
-    static QString imieGracza4;
     static int liczbaGraczy;
 
 

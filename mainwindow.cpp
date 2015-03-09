@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -16,12 +17,8 @@ MainWindow::~MainWindow()
 //zmienna globalne
 QString MainWindow::sciezkaPliku = "hasla.txt";
 QString MainWindow::haslaPliku   = "";
-QString MainWindow::imieGracza1  = "";
-QString MainWindow::imieGracza2  = "";
-QString MainWindow::imieGracza3  = "";
-QString MainWindow::imieGracza4  = "";
 int     MainWindow::liczbaGraczy = 2;
-
+QStringList MainWindow::imionaGraczy;
 
 //wejscie do edytora hasel
 void MainWindow::on_pushButtonEdytorHasel_clicked()
@@ -48,12 +45,8 @@ void MainWindow::on_pushButtonStart_clicked()
     }
     else
     {
-        imieGracza1 = ui->lineImieGracz1->displayText();
-        imieGracza2 = ui->lineImieGracz2->displayText();
-        imieGracza3 = ui->lineImieGracz3->displayText();
-        imieGracza4 = ui->lineImieGracz4->displayText();
+        imionaGraczy << ui->lineImieGracz1->displayText() << ui->lineImieGracz2->displayText() << ui->lineImieGracz3->displayText() << ui->lineImieGracz4->displayText();
         oknoGry o;
-        o.nowaGra();
         o.exec();
         o.close();
     }
