@@ -12,12 +12,12 @@ oknoGry::oknoGry(QWidget *parent) :
        tablica[16]=ui->litera_17; tablica[17]=ui->litera_18; tablica[18]=ui->litera_19; tablica[19]=ui->litera_20; tablica[20]=ui->litera_21; tablica[21]=ui->litera_22; tablica[22]=ui->litera_23; tablica[23]=ui->litera_24; tablica[24]=ui->litera_25; tablica[25]=ui->litera_26; tablica[26]=ui->litera_27; tablica[27]=ui->litera_28; tablica[28]=ui->litera_29; tablica[29]=ui->litera_30; tablica[30]=ui->litera_31; tablica[31]=ui->litera_32;
        tablica[32]=ui->litera_33; tablica[33]=ui->litera_34; tablica[34]=ui->litera_35; tablica[35]=ui->litera_36; tablica[36]=ui->litera_37; tablica[37]=ui->litera_38; tablica[38]=ui->litera_39; tablica[39]=ui->litera_40; tablica[40]=ui->litera_41; tablica[41]=ui->litera_42; tablica[42]=ui->litera_43; tablica[43]=ui->litera_44; tablica[44]=ui->litera_45; tablica[45]=ui->litera_46; tablica[46]=ui->litera_47; tablica[47]=ui->litera_48; tablica[48]=ui->litera_49;
        tablica[49]=ui->litera_50; tablica[50]=ui->litera_51; tablica[51]=ui->litera_52; tablica[52]=ui->litera_53; tablica[53]=ui->litera_54; tablica[54]=ui->litera_55; tablica[55]=ui->litera_56; tablica[56]=ui->litera_57; tablica[57]=ui->litera_58; tablica[58]=ui->litera_59; tablica[59]=ui->litera_60;
+       wartosciNaKole<<"425$"<<"225$"<<"375$"<<"STOP"<<"25$"<<"275$"<<"400$"<<"325$"<<"100$"<<"Bankrut"<<"200$"<<"50$"<<"350$"<<"Nagroda"<<"175$"<<"475$"<<"300$"<<"125$"<<"75$"<<"1400$";
+       stanGry = KRECENIE_KOLEM;
        katKola=0;
        stanKola=0;
        pozostaloLiterDoOdgadniecia = 0;
        kolejkaGracza = 0;
-       stanGry = KRECENIE_KOLEM;
-       wartosciNaKole<<"425"<<"225"<<"375"<<"STOP"<<"25"<<"275"<<"400"<<"325"<<"100"<<"Bankrut"<<"200"<<"50"<<"350"<<"Nagroda"<<"175"<<"475"<<"300"<<"125"<<"75"<<"1400";
        wynikGracza[0] = 0;
        wynikGracza[1] = 0;
        wynikGracza[2] = 0;
@@ -51,6 +51,9 @@ void oknoGry::nowaGra()
 //************************************************
 void oknoGry::rozgrywka()
 {
+    if (pozostaloLiterDoOdgadniecia <= 0) //sprawdzam czy koniec gry
+        stanGry = KONIEC_GRY;
+
     switch(stanGry)
     {
         case KRECENIE_KOLEM:
@@ -68,18 +71,10 @@ void oknoGry::rozgrywka()
              break;
 
         case ODGADL_LITERE:
-             //if (wynikGracza[kolejkaGracza] >= 200 )
-             //{
-                 wyswietlKomunikat(ZAKREC_KOLEM_LUB_KUP_SAMOGLOSKE);
-                 pokazKupSamogloski(true);
-                 pokazZakrecKolem(true);
-                 pokazOdgadujeHaslo(true);
-             //}
-             //else
-             //{
-             //    pokazOdgadujeHaslo(true);
-             //    nastepnyStanGry(); //krecenie kolem
-             //}
+             wyswietlKomunikat(ZAKREC_KOLEM_LUB_KUP_SAMOGLOSKE);
+             pokazKupSamogloski(true);
+             pokazZakrecKolem(true);
+             pokazOdgadujeHaslo(true);
              wyswietlKomunikat(WYSWIETL_WYNIK);
              break;
 
@@ -102,7 +97,7 @@ void oknoGry::rozgrywka()
              break;
 
         case NAGRODA:
-
+             wylosujNagrode();
              break;
 
         case STOP:
@@ -117,7 +112,9 @@ void oknoGry::rozgrywka()
 
     }
 }
-
+//************************************************
+//nastepny stan gry
+//************************************************
 void oknoGry::nastepnyStanGry()
 {
     switch(stanGry)
@@ -146,12 +143,48 @@ void oknoGry::nastepnyStanGry()
 //************************************************
 void oknoGry::koniecGry()
 {
-   wyswietlKomunikatMsgBox("Wygrana! Kliknij ok by powrócić do menu!\n"
-                            + MainWindow::imionaGraczy.at(0) + " = " + QString::number(wynikGracza[0]) + " $\n"
-                            + MainWindow::imionaGraczy.at(1) + " = " + QString::number(wynikGracza[1]) + " $\n"
-                            + MainWindow::imionaGraczy.at(2) + " = " + QString::number(wynikGracza[2]) + " $\n"
-                            + MainWindow::imionaGraczy.at(3) + " = " + QString::number(wynikGracza[3]) + " $" );
+   switch(MainWindow::liczbaGraczy)
+   {
+       case 4:
+            wyswietlKomunikatMsgBox("Wygrana!\n\n"
+                                    + MainWindow::imionaGraczy.at(0) + " = " + QString::number(wynikGracza[0]) + " $\n"
+                                    + MainWindow::imionaGraczy.at(1) + " = " + QString::number(wynikGracza[1]) + " $\n"
+                                    + MainWindow::imionaGraczy.at(2) + " = " + QString::number(wynikGracza[2]) + " $\n"
+                                    + MainWindow::imionaGraczy.at(3) + " = " + QString::number(wynikGracza[3]) + " $"
+                                    + "\n\nKliknij ok by powrócić do menu!");
+            break;
+       case 3:
+            wyswietlKomunikatMsgBox("Wygrana!\n\n"
+                                    + MainWindow::imionaGraczy.at(0) + " = " + QString::number(wynikGracza[0]) + " $\n"
+                                    + MainWindow::imionaGraczy.at(1) + " = " + QString::number(wynikGracza[1]) + " $\n"
+                                    + MainWindow::imionaGraczy.at(2) + " = " + QString::number(wynikGracza[2]) + " $"
+                                    + "\n\nKliknij ok by powrócić do menu!");
+            break;
+       default:
+            wyswietlKomunikatMsgBox("Wygrana!\n\n"
+                                    + MainWindow::imionaGraczy.at(0) + " = " + QString::number(wynikGracza[0]) + " $\n"
+                                    + MainWindow::imionaGraczy.at(1) + " = " + QString::number(wynikGracza[1]) + " $"
+                                    + "\n\nKliknij ok by powrócić do menu!");
+   }
    this->close();
+}
+
+//************************************************
+//losowanie nagrody
+//************************************************
+void oknoGry::wylosujNagrode()
+{
+    srand(time(0));
+    int nagroda;
+    nagroda = ( rand()%1500 ) + 1000;
+    wynikGracza[kolejkaGracza] += nagroda;
+    wyswietlKomunikat(WYSWIETL_WYNIK);
+    wyswietlKomunikatMsgBox("Gratulacje!\n"
+                            + MainWindow::imionaGraczy[kolejkaGracza]
+                            + " wygrałeś hajs!\n"
+                            + QString::number(nagroda)
+                            + "$ !!!");
+    nastepnyStanGry();
 }
 
 //====================================================================================================================
@@ -279,23 +312,16 @@ void oknoGry::odgadujeLitere(QString znak, bool spolgloska)
         {
             tablica[i]->setStyleSheet("color: black;");
             licznik++;
-            pozostaloLiterDoOdgadniecia--;
+            //pozostaloLiterDoOdgadniecia--;
         }
     }
-    //do wywalenia prawdopodobnie
-    if (pozostaloLiterDoOdgadniecia == 0) //sprawdzam czy koniec gry
-    {
-        stanGry = KONIEC_GRY;
-        rozgrywka();
-    }
-
     //jesli juz taka litera byla podana wczesniej
     for (int i=0; i<odgadywaneLitery.size(); i++)
     {
         if (QString::compare(znak, odgadywaneLitery.at(i), Qt::CaseInsensitive) == 0)
         {
            czyWystapila = true;
-           wyswietlKomunikatMsgBox("Litera " + znak + " została juz sprawdzona, tracisz kolejkę!");
+           wyswietlKomunikatMsgBox("Litera " + znak + " została juz sprawdzona, " + MainWindow::imionaGraczy[kolejkaGracza] + " tracisz kolejkę!");
            break;
         }
     }
@@ -304,6 +330,7 @@ void oknoGry::odgadujeLitere(QString znak, bool spolgloska)
     {
         if (spolgloska)
             wynikGracza[kolejkaGracza] += licznik *  wartosciNaKole[stanKola].toInt();
+        pozostaloLiterDoOdgadniecia -= licznik;
         stanGry = ODGADL_LITERE;
         rozgrywka();
     }
@@ -316,6 +343,8 @@ void oknoGry::odgadujeLitere(QString znak, bool spolgloska)
     ui->labelInformacjaLitery->setText("Litera '" + znak.toUpper() + "' wystąpiła " + QString::number(licznik) + "x");
     odgadywaneLitery << znak;
     czyWystapila = false;
+    ui->lineEditDevPodglad->setText(QString::number(pozostaloLiterDoOdgadniecia));
+
 
 }
 
@@ -425,13 +454,16 @@ void oknoGry::wyswietlKomunikat(int komunikat)
             ui->labelKolejkaGracza->setText("Gra " + MainWindow::imionaGraczy[kolejkaGracza]);
             break;
         case ZAKREC_KOLEM:
-            ui->labelInformacja->setText("Zakręc kołem");
+            ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " zakręc kołem");
             break;
         case ZAKREC_KOLEM_LUB_KUP_SAMOGLOSKE:
-            ui->labelInformacja->setText("Zakręc kołem, kup samogłoskę lub odgadnij hasło");
+            ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " zakręc kołem, kup samogłoskę lub odgadnij hasło");
             break;
         case ODGADNIJ_SAMOGLOSKE:
-            ui->labelInformacja->setText("Odgadnij samogłoskę");
+            ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " odgadnij samogłoskę");
+            break;
+        case KUPIL_SAMOGLOSKE:
+            ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " wybierz samogłoskę");
             break;
         case WYSWIETL_WYNIK:
             ui->labelWynikGracza1->setText(MainWindow::imionaGraczy[0] + " = " + QString::number(wynikGracza[0]) + " $");
@@ -439,10 +471,6 @@ void oknoGry::wyswietlKomunikat(int komunikat)
             ui->labelWynikGracza3->setText(MainWindow::imionaGraczy[2] + " = " + QString::number(wynikGracza[2]) + " $");
             ui->labelWynikGracza4->setText(MainWindow::imionaGraczy[3] + " = " + QString::number(wynikGracza[3]) + " $");
             break;
-        case KUPIL_SAMOGLOSKE:
-            ui->labelInformacja->setText("Wybierz samogłoskę");
-            break;
-
     }
 }
 
@@ -467,7 +495,6 @@ void oknoGry::odgadujeHaslo()
         nastepnyStanGry();
     }
 }
-
 
 //************************************************
 //pokaz samogloski
@@ -509,11 +536,8 @@ void oknoGry::pokazPrzyciski(bool decyzja)
 
    ui->pbZakrecKolem->setEnabled(decyzja);
    ui->pbOdgadnijHaslo->setEnabled(decyzja);
-
   // ui->pbWyswietl->setEnabled(decyzja);
    ui->pbKupSamogloske->setEnabled(decyzja);
-  // ui->pbLitera->setEnabled(decyzja);
-  // ui->pbNowe->setEnabled(decyzja);
   // ui->pbUkryj->setEnabled(decyzja);
 }
 
@@ -602,7 +626,6 @@ void oknoGry::kolorujPusteZnaki()
     }
 }
 
-
 //====================================================================================================================
 //======PushButtony======PushButtony======PushButtony======PushButtony======PushButtony======PushButtony==============
 //====================================================================================================================
@@ -615,7 +638,6 @@ void oknoGry::on_pbOdgadnijHaslo_clicked()
     odgadujeHaslo();
 }
 
-
 void oknoGry::on_pbUkryj_clicked()
 {
     ukryjHaslo();
@@ -624,12 +646,6 @@ void oknoGry::on_pbUkryj_clicked()
 void oknoGry::on_pbWyswietl_clicked()
 {
     wyswietlHaslo();
-}
-
-void oknoGry::on_pbLitera_clicked()
-{
-   pokazSamogloski(false);
-   pokazSpolgloski(true);
 }
 
 void oknoGry::on_pbKupSamogloske_clicked()
@@ -642,15 +658,8 @@ void oknoGry::on_pbKupSamogloske_clicked()
         rozgrywka();
     }
     else
-        wyswietlKomunikatMsgBox(MainWindow::imionaGraczy[kolejkaGracza] + " nie masz wystarczającej ilości gotówki");
+        wyswietlKomunikatMsgBox(MainWindow::imionaGraczy[kolejkaGracza] + " nie masz wystarczającej ilości gotówki!!");
 }
-
-//button nowaGra
-void oknoGry::on_pbNowe_clicked()
-{
-    nowaGra();
-}
-
 
 //************************************************
 //Klawiatura
@@ -697,7 +706,6 @@ void oknoGry::on_klaw_aPL_clicked()
 
 void oknoGry::on_klaw_a_clicked()
 {
-   //ui->TextEditHaslo->setText(QString::number(odgadujeLitere("a")));
     odgadujeLitere("a", false);
 }
 

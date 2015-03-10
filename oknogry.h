@@ -50,10 +50,8 @@ private slots:
      //przyciski
      void on_pbUkryj_clicked();
      void on_pbWyswietl_clicked();
-     void on_pbLitera_clicked();
      void on_pbKupSamogloske_clicked();
      void on_pbZakrecKolem_clicked();
-     void on_pbNowe_clicked();
      void on_pbOdgadnijHaslo_clicked();
 
      //klawiatura
@@ -98,7 +96,9 @@ private:
 
     //wyswietlacz / okno / gra
     void nowaGra();
+    void koniecGry();
     void rozgrywka();
+    void nastepnyStanGry();
     void stylPrzyciskow();
     void wyczyscEkran();
     void kolorujPusteZnaki();
@@ -111,8 +111,7 @@ private:
     void pokazOdgadujeHaslo(bool decyzja);
     void wyswietlKomunikat(int komunikat);
     void wyswietlKomunikatMsgBox(QString komunikat);
-    void koniecGry();
-    void nastepnyStanGry();
+    void wylosujNagrode();
     QToolButton * tablica[60];
     komunikaty komunikat;
     stanyGry stanGry;
