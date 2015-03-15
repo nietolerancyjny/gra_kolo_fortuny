@@ -48,8 +48,6 @@ public:
 private slots:
 
      //przyciski
-     void on_pbUkryj_clicked();
-     void on_pbWyswietl_clicked();
      void on_pbKupSamogloske_clicked();
      void on_pbZakrecKolem_clicked();
      void on_pbOdgadnijHaslo_clicked();

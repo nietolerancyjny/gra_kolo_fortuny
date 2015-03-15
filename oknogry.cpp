@@ -12,7 +12,7 @@ oknoGry::oknoGry(QWidget *parent) :
        tablica[16]=ui->litera_17; tablica[17]=ui->litera_18; tablica[18]=ui->litera_19; tablica[19]=ui->litera_20; tablica[20]=ui->litera_21; tablica[21]=ui->litera_22; tablica[22]=ui->litera_23; tablica[23]=ui->litera_24; tablica[24]=ui->litera_25; tablica[25]=ui->litera_26; tablica[26]=ui->litera_27; tablica[27]=ui->litera_28; tablica[28]=ui->litera_29; tablica[29]=ui->litera_30; tablica[30]=ui->litera_31; tablica[31]=ui->litera_32;
        tablica[32]=ui->litera_33; tablica[33]=ui->litera_34; tablica[34]=ui->litera_35; tablica[35]=ui->litera_36; tablica[36]=ui->litera_37; tablica[37]=ui->litera_38; tablica[38]=ui->litera_39; tablica[39]=ui->litera_40; tablica[40]=ui->litera_41; tablica[41]=ui->litera_42; tablica[42]=ui->litera_43; tablica[43]=ui->litera_44; tablica[44]=ui->litera_45; tablica[45]=ui->litera_46; tablica[46]=ui->litera_47; tablica[47]=ui->litera_48; tablica[48]=ui->litera_49;
        tablica[49]=ui->litera_50; tablica[50]=ui->litera_51; tablica[51]=ui->litera_52; tablica[52]=ui->litera_53; tablica[53]=ui->litera_54; tablica[54]=ui->litera_55; tablica[55]=ui->litera_56; tablica[56]=ui->litera_57; tablica[57]=ui->litera_58; tablica[58]=ui->litera_59; tablica[59]=ui->litera_60;
-       wartosciNaKole<<"425$"<<"225$"<<"375$"<<"STOP"<<"25$"<<"275$"<<"400$"<<"325$"<<"100$"<<"Bankrut"<<"200$"<<"50$"<<"350$"<<"Nagroda"<<"175$"<<"475$"<<"300$"<<"125$"<<"75$"<<"1400$";
+       wartosciNaKole<<"425"<<"225"<<"375"<<"Stop"<<"25"<<"275"<<"400"<<"325"<<"100"<<"Bankrut"<<"200"<<"50"<<"350"<<"Nagroda"<<"175"<<"475"<<"300"<<"125"<<"75"<<"1400";
        stanGry = KRECENIE_KOLEM;
        katKola=0;
        stanKola=0;
@@ -109,7 +109,6 @@ void oknoGry::rozgrywka()
         case KONIEC_GRY:
              koniecGry();
              break;
-
     }
 }
 //************************************************
@@ -226,7 +225,7 @@ void oknoGry::wczytajKolo()
     ui->graphicsView->setScene(scena);
     ui->graphicsView->setAlignment(Qt::AlignHCenter);
     ui->graphicsView->setAlignment(Qt::AlignVCenter);
-    ui->TextEditKwota->setText(wartosciNaKole[0]);
+    ui->TextEditKwota->setText(wartosciNaKole[0] + "$");
     delete obrazek;
 }
 
@@ -248,7 +247,7 @@ void oknoGry::on_pbZakrecKolem_clicked()
         stanGry = NAGRODA;
         rozgrywka();
     }
-    else if(wartosciNaKole[stanKola] == "STOP")
+    else if(wartosciNaKole[stanKola] == "Stop")
     {
         stanGry = STOP;
         rozgrywka();
@@ -275,7 +274,10 @@ void oknoGry::obroc()
         katKola++;
         stanKola = (katKola%360)/18;
         stanKola %= 20;
-        ui->TextEditKwota->setText(wartosciNaKole[stanKola]);
+        if (wartosciNaKole[stanKola] == "Stop" or wartosciNaKole[stanKola] == "Bankrut" or wartosciNaKole[stanKola] == "Nagroda")
+            ui->TextEditKwota->setText(wartosciNaKole[stanKola]);
+        else
+            ui->TextEditKwota->setText(wartosciNaKole[stanKola] + "$");
         //zabezpieczenie przed zapelnieniem zmiennnej
         if (katKola==360)
             katKola=0;
@@ -343,9 +345,6 @@ void oknoGry::odgadujeLitere(QString znak, bool spolgloska)
     ui->labelInformacjaLitery->setText("Litera '" + znak.toUpper() + "' wystąpiła " + QString::number(licznik) + "x");
     odgadywaneLitery << znak;
     czyWystapila = false;
-    ui->lineEditDevPodglad->setText(QString::number(pozostaloLiterDoOdgadniecia));
-
-
 }
 
 //************************************************
@@ -460,7 +459,7 @@ void oknoGry::wyswietlKomunikat(int komunikat)
             ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " zakręc kołem, kup samogłoskę lub odgadnij hasło");
             break;
         case ODGADNIJ_SAMOGLOSKE:
-            ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " odgadnij samogłoskę");
+            ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " odgadnij spółgłoskę");
             break;
         case KUPIL_SAMOGLOSKE:
             ui->labelInformacja->setText(MainWindow::imionaGraczy[kolejkaGracza] + " wybierz samogłoskę");
@@ -533,12 +532,9 @@ void oknoGry::pokazSpolgloski(bool decyzja)
 //************************************************
 void oknoGry::pokazPrzyciski(bool decyzja)
 {
-
    ui->pbZakrecKolem->setEnabled(decyzja);
    ui->pbOdgadnijHaslo->setEnabled(decyzja);
-  // ui->pbWyswietl->setEnabled(decyzja);
    ui->pbKupSamogloske->setEnabled(decyzja);
-  // ui->pbUkryj->setEnabled(decyzja);
 }
 
 //************************************************
@@ -636,16 +632,6 @@ void oknoGry::kolorujPusteZnaki()
 void oknoGry::on_pbOdgadnijHaslo_clicked()
 {
     odgadujeHaslo();
-}
-
-void oknoGry::on_pbUkryj_clicked()
-{
-    ukryjHaslo();
-}
-
-void oknoGry::on_pbWyswietl_clicked()
-{
-    wyswietlHaslo();
 }
 
 void oknoGry::on_pbKupSamogloske_clicked()
