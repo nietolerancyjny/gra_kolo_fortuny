@@ -36,6 +36,10 @@ void MainWindow::on_pushButtonEdytorHasel_clicked()
 //uruchomienie gry
 void MainWindow::on_pushButtonStart_clicked()
 {
+    hasla has;
+    has.otworzPlik(0);
+    has.close();
+
     if (haslaPliku.length() < 10) //tak na wszelki wypadek
     {
         QMessageBox brakHasel ("ERROR", "Blad - nie załadowano pliku z haslami",
